@@ -108,12 +108,17 @@ int String::contain(const char c)
 int String::contain(const String &s)
 {
 	for (size_t i = 0; i < _len; ++i)
-		if (_buf[i] == s[0])
+		if ((_buf[i] == s[0]) && (i + s._len) <= _len)
 		{
+			bool r = true;
 			for (size_t j = i + 1; j < i + s._len; ++j)
-				if (!(_buf[j] == s[j - i]))
+				if (_buf[j] != s[j - i])
+				{
+					r = false;
 					break;
-			return i;
+				}
+			if (r)
+			    return i;
 		}
 	return -1;
 }
